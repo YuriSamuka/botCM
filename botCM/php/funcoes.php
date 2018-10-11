@@ -1,4 +1,7 @@
 <?php
+
+require_once "Conexao.php"
+
 function MA($par, $periodo, $comprimento){
 	global $candles, $instante;
 	$trader = new Poloniex('EPET7WRX-F8D7ZJJ3-DTHE75JB-SHF65WA9', '8978ac924a9726dae3bc0db7787d02f0eac0f17cd5cbdf731992b9c6c9a8e4be965388de5d6772ec63ea0cf77ce5bea46d4de20cdbdedb3c30816af1779a64ad');
@@ -24,17 +27,41 @@ function EMACalculator($limit,$array)
     $Close= $array[1];
     
     while($limit)
-{    
+	{    
     //echo"EMA is $EMA\n";
     $EMA = ($Close - $EMA_previous_day) * $multiplier1 + $EMA_previous_day;
     $EMA_previous_day= $EMA;
     
     $limit--;
-}
-return $EMA;
+	}
+	return $EMA;
 }
 
 function ComparaMA($MA1, $MA2){
 	global $candles;
 	return (($MA1 - $MA2)*1000)/$candles[49]['close'];
+}
+
+function getConexao(){
+	return Conexao::novaConexao('botcm', 'root', '', 'localhost', 'utf8');
+}
+/**
+ * @param $aCamposValores[] - array com os valores para inserção e os nomes de seus respectivos campos no Banco de dados
+ * @param $nomeTabela - string com nome da tabela
+ */
+function insert_db($aCamposValores, $nomeTabela){
+	try{
+		$aNomeCampos = array_keys($aCamposValores);
+		$conn = Conexao::novaConexao(DBNAME, USER, PASSWORD, HOST, CHARSET);
+		$stm = $conn->prepare('INSERT INTO '. $nomeTabela . ' (' . implode(', ' , $aNomeCampos). ') VALUES ( :'. implode(', :' , $aNomeCampos) . ')');
+		$aAutoBind = [];
+		foreach ($aCamposValores as $campos => $valores){
+			$aAutoBind[':' . $campos] = $valores;
+		}
+		$stm->execute($aAutoBind);
+		$stm = null;
+		$conn = null;
+	}catch (\PDOException $e){
+		throw  new \Exception('Erro ao tentar realizar insert no banco: ' . $e->getMessage());
+	}
 }

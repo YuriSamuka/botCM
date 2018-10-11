@@ -111,26 +111,30 @@ class Poloniex
         );
     }
 
-    public function buy($pair, $rate, $amount) {
-        return $this->query(
-            array(
-                'command' => 'buy',
-                'currencyPair' => strtoupper($pair),
-                'rate' => $rate,
-                'amount' => $amount
-            )
-        );
+    public function buy($pair, $rate, $amount, $fillOrKill = null) {
+		$query = [
+			'command' => 'buy',
+			'currencyPair' => strtoupper($pair),
+			'rate' => $rate,
+			'amount' => $amount,
+		];
+		if($fillOrKill){
+			$query['fillOrKill'] = 1;
+		}
+        return $this->query($query);
     }
 
-    public function sell($pair, $rate, $amount) {
-        return $this->query(
-            array(
-                'command' => 'sell',
-                'currencyPair' => strtoupper($pair),
-                'rate' => $rate,
-                'amount' => $amount
-            )
-        );
+    public function sell($pair, $rate, $amount, $fillOrKill = null) {
+		$query = [
+			'command' => 'sell',
+			'currencyPair' => strtoupper($pair),
+			'rate' => $rate,
+			'amount' => $amount
+		];
+		if($fillOrKill){
+			$query['fillOrKill'] = 1;
+		}
+        return $this->query($query);
     }
 
     public function cancel_order($pair, $order_number) {
