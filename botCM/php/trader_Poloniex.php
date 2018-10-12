@@ -5,9 +5,19 @@
  * Date: 27/02/2018
  * Time: 19:42
  */
+ 
+define('TIME_FRAME', 300);
+define('MEDIA_RAPIDA', 3);
+define('MEDIA_LENTA', 10);
+define('FILLORKILL_ORDER', 1);
+define('IMMEDIATEORCANCEL_ORDER', 2);
+define('POSTONLY_ORDER', 3);
+
 require_once "config.php";
 require_once "Poloniex.php";
 require_once "funcoes.php";
+
+
 
 
 $trader = new Poloniex('EPET7WRX-F8D7ZJJ3-DTHE75JB-SHF65WA9', '8978ac924a9726dae3bc0db7787d02f0eac0f17cd5cbdf731992b9c6c9a8e4be965388de5d6772ec63ea0cf77ce5bea46d4de20cdbdedb3c30816af1779a64ad');
