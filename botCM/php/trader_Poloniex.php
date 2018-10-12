@@ -36,12 +36,12 @@ $tickers = $trader->get_ticker('USDT_BTC');
 
 
 $range = ComparaMA(MA('USDT_BTC', TIME_FRAME, MEDIA_RAPIDA), MA('USDT_BTC', TIME_FRAME, MEDIA_LENTA));
-var_dump($range);
 if($range > 0.01){
 	if($balances['USDT'] > 1){
 		$amount = $balances['USDT'] / $tickers['last'];
 		$price = $tickers['last'];
 		$ordem = $trader->buy('USDT_BTC', $price, $amount, FILLORKILL_ORDER);
+		var_dump($ordem);
 		if(!isset($ordem['error'])){
 			var_dump('Compra: ' . $amount . ' por: ' . $price . ' Paga ' . $ordem['resultingTrades']['total']);
 			$aDados = [
