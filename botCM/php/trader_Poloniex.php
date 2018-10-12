@@ -55,6 +55,7 @@ if($range > 0.11){
 			insert_db($aDados, 'btc_usdt');	
 		}
 	}
+	var_dump($range);
 } else if($range < 0.01){
 	if($balances['BTC'] > 0.001){
 		$amount = $balances['BTC'];
