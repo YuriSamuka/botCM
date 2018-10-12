@@ -36,6 +36,7 @@ $tickers = $trader->get_ticker('USDT_BTC');
 
 
 $range = ComparaMA(MA('USDT_BTC', TIME_FRAME, MEDIA_RAPIDA), MA('USDT_BTC', TIME_FRAME, MEDIA_LENTA));
+var_dump($range);
 if($range > 0.11){
 	if($balances['USDT'] > 1){
 		$amount = $balances['USDT'] / $tickers['last'];
@@ -55,7 +56,6 @@ if($range > 0.11){
 			insert_db($aDados, 'btc_usdt');	
 		}
 	}
-	var_dump($range);
 } else if($range < 0.01){
 	if($balances['BTC'] > 0.001){
 		$amount = $balances['BTC'];
