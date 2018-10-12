@@ -36,7 +36,6 @@ $tickers = $trader->get_ticker('USDT_BTC');
 
 
 $range = ComparaMA(MA('USDT_BTC', TIME_FRAME, MEDIA_RAPIDA), MA('USDT_BTC', TIME_FRAME, MEDIA_LENTA));
-var_dump($range);
 if($range > 0.11){
 	if($balances['USDT'] > 1){
 		$amount = $balances['USDT'] / $tickers['last'];
@@ -59,9 +58,8 @@ if($range > 0.11){
 } else if($range < 0.01){
 	if($balances['BTC'] > 0.001){
 		$amount = $balances['BTC'];
-		$price = $tickers['last'];
+		$price = $tickers['last'] -1;
 		$ordem = $trader->sell('USDT_BTC', $price, $amount, IMMEDIATEORCANCEL_ORDER);
-		var_dump($ordem);
 		if(!isset($ordem['error']) && isset($ordem['resultingTrades']['total'])){
 			var_dump('venda: ' . $amount . ' por: ' . $price . ' recebe ' . $ordem['resultingTrades']['total']);
 			$aDados = [
