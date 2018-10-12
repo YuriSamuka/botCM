@@ -41,7 +41,7 @@ if($range > 0.01){
 		$amount = $balances['USDT'] / $tickers['last'];
 		$price = $tickers['last'];
 		$ordem = $trader->buy('USDT_BTC', $price, $amount, FILLORKILL_ORDER);
-		var_dump($ordem);
+		//var_dump($ordem);
 		if(!isset($ordem['error'])){
 			var_dump('Compra: ' . $amount . ' por: ' . $price . ' Paga ' . $ordem['resultingTrades']['total']);
 			$aDados = [
