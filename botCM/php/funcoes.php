@@ -47,8 +47,7 @@ function EMACalculator($limit,$array)
 * Retorna o percentual de variação de $MA2 em relação a $MA1
 */
 function ComparaMA($MA1, $MA2){
-	global $candles;
-	return ($MA1*0.1)/$MA2;
+	return ($MA2*0.1)/$MA1;
 }
 
 /**
