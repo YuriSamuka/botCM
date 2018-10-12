@@ -9,8 +9,8 @@ require_once "Poloniex.php";
 require_once "funcoes.php";
 
 define('TIME_FRAME', 300);
-define('MEDIA_RAPIDA', 9);
-define('MEDIA_LENTA', 40);
+define('MEDIA_RAPIDA', 3);
+define('MEDIA_LENTA', 10);
 
 $trader = new Poloniex('EPET7WRX-F8D7ZJJ3-DTHE75JB-SHF65WA9', '8978ac924a9726dae3bc0db7787d02f0eac0f17cd5cbdf731992b9c6c9a8e4be965388de5d6772ec63ea0cf77ce5bea46d4de20cdbdedb3c30816af1779a64ad');
 
@@ -28,7 +28,7 @@ $tickers = $trader->get_ticker('USDT_BTC');
 
 
 $range = ComparaMA(MA('USDT_BTC', TIME_FRAME, MEDIA_RAPIDA), MA('USDT_BTC', TIME_FRAME, MEDIA_LENTA));
-if($range > 1.5){
+if($range > 0.11){
 	if($balances['USDT'] > 1){
 		$amount = $balances['USDT'] / $tickers['last'];
 		$price = $tickers['last'];
@@ -39,7 +39,7 @@ if($range > 1.5){
 				'tipo_operacao' => 'B',
 				'preco' => $price,
 				'montante' => $amount,
-				'total' =>  $ordem['resultingTrades']['total'],
+				'total' => $ordem['resultingTrades']['total'],
 				'rangec' => $range,
 				'mar' => MA('USDT_BTC', TIME_FRAME, MEDIA_RAPIDA),
 				'mal' => MA('USDT_BTC', TIME_FRAME, MEDIA_LENTA)
@@ -47,7 +47,7 @@ if($range > 1.5){
 			insert_db($aDados, 'btc_usdt');	
 		}
 	}
-} else if($range < 0.5){
+} else if($range < 0){
 	if($balances['BTC'] > 0.001){
 		$amount = $balances['BTC'];
 		$price = $tickers['last'];
