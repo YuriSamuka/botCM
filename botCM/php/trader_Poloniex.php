@@ -7,10 +7,7 @@
  */
 require_once "Poloniex.php";
 require_once "funcoes.php";
-
-define('TIME_FRAME', 300);
-define('MEDIA_RAPIDA', 3);
-define('MEDIA_LENTA', 10);
+require_once "config.php";
 
 $trader = new Poloniex('EPET7WRX-F8D7ZJJ3-DTHE75JB-SHF65WA9', '8978ac924a9726dae3bc0db7787d02f0eac0f17cd5cbdf731992b9c6c9a8e4be965388de5d6772ec63ea0cf77ce5bea46d4de20cdbdedb3c30816af1779a64ad');
 
@@ -52,7 +49,7 @@ if($range > 0.11){
 		$amount = $balances['BTC'];
 		$price = $tickers['last'];
 		$ordem = $trader->sell('USDT_BTC', $price, $amount, 1);
-		if(!isset($ordem['error'])){
+		if(!isset($ordem['error']) isset($ordem['resultingTrades']['total'])){
 			var_dump('venda: ' . $amount . ' por: ' . $price . ' recebe ' . $ordem['resultingTrades']['total']);
 			$aDados = [
 						'tipo_operacao' => 'S',
