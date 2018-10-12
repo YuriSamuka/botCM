@@ -58,8 +58,9 @@ if($range > 0.11){
 } else if($range < 0.01){
 	if($balances['BTC'] > 0.001){
 		$amount = $balances['BTC'];
-		$price = $tickers['last'] -1;
+		$price = $tickers['last'] -2;
 		$ordem = $trader->sell('USDT_BTC', $price, $amount, IMMEDIATEORCANCEL_ORDER);
+		var_dump($ordem);
 		if(!isset($ordem['error']) && isset($ordem['resultingTrades']['total'])){
 			var_dump('venda: ' . $amount . ' por: ' . $price . ' recebe ' . $ordem['resultingTrades']['total']);
 			$aDados = [
