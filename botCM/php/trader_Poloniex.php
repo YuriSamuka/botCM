@@ -13,7 +13,7 @@ define('FILLORKILL_ORDER', 1);
 define('IMMEDIATEORCANCEL_ORDER', 2);
 define('POSTONLY_ORDER', 3);
 
-require_once "config.php";
+//require_once "config.php";
 require_once "Poloniex.php";
 require_once "funcoes.php";
 
@@ -60,6 +60,7 @@ if($range > 0.11){
 		$amount = $balances['BTC'];
 		$price = $tickers['last'];
 		$ordem = $trader->sell('USDT_BTC', $price, $amount, IMMEDIATEORCANCEL_ORDER);
+		var_dump($ordem);
 		if(!isset($ordem['error']) && isset($ordem['resultingTrades']['total'])){
 			var_dump('venda: ' . $amount . ' por: ' . $price . ' recebe ' . $ordem['resultingTrades']['total']);
 			$aDados = [
