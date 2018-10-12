@@ -36,7 +36,7 @@ $tickers = $trader->get_ticker('USDT_BTC');
 
 
 $range = ComparaMA(MA('USDT_BTC', TIME_FRAME, MEDIA_RAPIDA), MA('USDT_BTC', TIME_FRAME, MEDIA_LENTA));
-if($range > 0.11){
+if($range > 0.5){
 	if($balances['USDT'] > 1){
 		$amount = $balances['USDT'] / $tickers['last'];
 		$price = $tickers['last'];
