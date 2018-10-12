@@ -29,7 +29,7 @@ if($range > 0.11){
 	if($balances['USDT'] > 1){
 		$amount = $balances['USDT'] / $tickers['last'];
 		$price = $tickers['last'];
-		$ordem = $trader->buy('USDT_BTC', $price, $amount, 1);
+		$ordem = $trader->buy('USDT_BTC', $price, $amount, FILLORKILL_ORDER);
 		if(!isset($ordem['error'])){
 			var_dump('Compra: ' . $amount . ' por: ' . $price . ' Paga ' . $ordem['resultingTrades']['total']);
 			$aDados = [
@@ -44,12 +44,12 @@ if($range > 0.11){
 			insert_db($aDados, 'btc_usdt');	
 		}
 	}
-} else if($range < 0){
+} else if($range < 0.01){
 	if($balances['BTC'] > 0.001){
 		$amount = $balances['BTC'];
 		$price = $tickers['last'];
-		$ordem = $trader->sell('USDT_BTC', $price, $amount, 1);
-		if(!isset($ordem['error']) isset($ordem['resultingTrades']['total'])){
+		$ordem = $trader->sell('USDT_BTC', $price, $amount, IMMEDIATEORCANCEL_ORDER);
+		if(!isset($ordem['error']) && isset($ordem['resultingTrades']['total'])){
 			var_dump('venda: ' . $amount . ' por: ' . $price . ' recebe ' . $ordem['resultingTrades']['total']);
 			$aDados = [
 						'tipo_operacao' => 'S',
